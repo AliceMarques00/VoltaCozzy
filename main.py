@@ -44,15 +44,14 @@ pos_bala_y= 300  #
 
 triggered= False
 pontos= 1
-rodando = True  # Controle do loop
-
+rodando = True 
 font = pygame.font.SysFont('fonts/PixelGameFont.ttf', 50)
 
 player_rect = playerImg.get_rect()
 cuscuz_rect = cuscuz.get_rect()
 bala_rect = bala.get_rect()
 
-#funções
+#funções de renasc, renascer os misseis e de colidir
     
 def respawn():
      x= 1350
@@ -70,13 +69,13 @@ def colisions():
     global pontos
     if player_rect.colliderect(cuscuz_rect) or cuscuz_rect.x ==60:
        pontos -=1
-       return True
+       return "player"
 
     elif bala_rect.colliderect(cuscuz_rect):
        pontos +=1
-       return True
+       return "bala"
     else:
-       return False
+       return None
 
  
 
@@ -110,7 +109,7 @@ while rodando:  # Enquanto o jogo estiver rodando
             pos_bala_y +=1 
             
  
-            
+ 
     #atirar
     if tecla[pygame.K_SPACE] and not triggered:
         triggered = True
@@ -132,7 +131,8 @@ while rodando:  # Enquanto o jogo estiver rodando
         pos_bala_x, pos_bala_y, triggered, vel_x_bala = respawn_bala()
         #principal respsv pelo respawn
     
-    if pos_cuscuz_x == 50 or colisions():
+    colisao = colisions()
+    if pos_cuscuz_x == 50 or colisao:
         pos_cuscuz_x = respawn()[0]
         pos_cuscuz_y = respawn()[1]
     
@@ -178,4 +178,4 @@ while rodando:  # Enquanto o jogo estiver rodando
         screen.blit(bala, (pos_bala_x, pos_bala_y))
 
     print(pontos)
-    pygame.display.update() 
+    pygame.display.update()
