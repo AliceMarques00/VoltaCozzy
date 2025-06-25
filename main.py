@@ -179,3 +179,4 @@ while rodando:  # Enquanto o jogo estiver rodando
 
     print(pontos)
     pygame.display.update()
+
